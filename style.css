@@ -1,0 +1,81 @@
+/* style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #333;
+}
+
+#form {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    font-size: 16px;
+    text-align: left;
+    padding: 10px;
+}
+
+input[type="text"],
+textarea,
+select {
+    padding: 12px;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #333;
+}
+
+textarea {
+    height: 200px;
+}
+
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+input[type="checkbox"]+label {
+    font-size: 16px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.checkBox {
+    text-align: center;
+    margin: 40px auto 80px;
+}
+
+.sendBtn {
+    font-size: 16px;
+    background: yellowgreen;
+    color: #fff;
+    font-weight: bold;
+    border: 1px solid yellowgreen;
+    padding: 12px 0;
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#form .alert {
+    font-size: 14px;
+    padding-top: 5px;
+    color: tomato;
+}

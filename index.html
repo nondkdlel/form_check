@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <form id="form" action="test.html">
+        <h1 style="text-align: center; margin-bottom: 40px;">Test Form</h1>
+        <table>
+            <colgroup>
+                <col width="25%">
+                <col width="75%">
+            </colgroup>
+            <tbody>
+                <tr class="data_row_01">
+                    <th>문의유형</th>
+                    <td>
+                        <select id="type_sel" name="type_sel" onchange="typeValue();">
+                            <option value="non_sel">선택</option>
+                            <option value="op_01">예약/결제</option>
+                            <option value="op_02">취소/변경</option>
+                            <option value="op_03">단체/제휴</option>
+                            <option value="op_04">불편/개선</option>
+                            <option value="op_05">기타 문의</option>
+                        </select>
+                        <p class="alert"></p>
+                    </td>
+                </tr>
+                <tr class="data_row_02">
+                    <th>제목</th>
+                    <td>
+                        <input type="text" name="" id="tit" placeholder="제목을 입력해주세요.">
+                        <p class="alert"></p>
+                    </td>
+                </tr>
+                <tr class="data_row_03">
+                    <th>내용</th>
+                    <td>
+                        <textarea id="content" name=""></textarea>
+                        <p class="alert"></p>
+                    </td>
+                </tr>
+                <tr class="data_row_04">
+                    <th>고객명</th>
+                    <td>
+                        <input type="text" id="user_nm" name="">
+                        <p class="alert"></p>
+                    </td>
+                </tr>
+                <tr class="data_row_05">
+                    <th>휴대폰</th>
+                    <td>
+                        <!-- 숫자 제외 모든 입력 값 제한 정규식 -->
+                        <input type="text" id="user_tel" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
+                        <p class="alert"></p>
+                    </td>
+                </tr>
+                <tr class="data_row_06">
+                    <th>이메일</th>
+                    <td>
+                        <!-- 한글 입력 값 제한 정규식 -->
+                        <input type="text" id="user_email" name="" onKeyup="this.value=this.value.replace( /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g,'');">
+                        <p class="alert"></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="checkBox">
+            <input type="checkbox" name="agr_chk" id="agr_chk">
+            <label for="agr_chk">[필수] 위 내용 모두 기입에 동의 시 체크해주세요.</label>
+        </div>
+        <input type="button" value="제출하기" class="sendBtn" onclick="sendForm();">
+    </form>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    // 제출하기 버튼 클릭 시 얼럿 
+
+    function sendForm() {
+        var select_val = $("#type_sel").val();
+        // 필수 입력 항목 값을 하나라도 입력하지 않았을 때 마다 나오게 하기 위해 if문 안에 필수 입력 조건을 추가
+        if (select_val == "non_sel" || !$("#tit").val() || !$("#content").val() || !$("#user_nm").val() || !$("#user_tel").val() || !$("#user_email").val() || $("#agr_chk").is(":checked") == false) {
+
+            // select_val == "non_sel" => select option value가 non_sel인 경우 얼럿 
+            if (select_val == "non_sel") {
+                $("#form .data_row_01 .alert").text("문의유형을 선택해주세요.");
+            } else {
+                // select option value가 non_sel이 아닌 경우 얼럿 삭제 
+                $("#form .data_row_01 .alert").text("");
+            }
+
+            // !$("#tit").val() => 아이디 값이 tit인 input의 value 값이 없을 경우 얼럿
+            if (!$("#tit").val()) {
+                $("#form .data_row_02 .alert").text("제목을 입력해주세요.");
+            } else {
+                //아이디 값이 tit인 input의 value 값이 있는 경우 얼럿 삭제
+                $("#form .data_row_02 .alert").text("");
+            }
+
+            if (!$("#content").val()) {
+                $("#form .data_row_03 .alert").text("내용을 입력해주세요.");
+            } else {
+                $("#form .data_row_03 .alert").text("");
+            }
+            if (!$("#user_nm").val()) {
+                $("#form .data_row_04 .alert").text("성함을 입력해주세요.");
+            } else {
+                $("#form .data_row_04 .alert").text("");
+            }
+            if (!$("#user_tel").val()) {
+                $("#form .data_row_05 .alert").text("휴대폰 번호를 입력해주세요.");
+            } else {
+                $("#form .data_row_05 .alert").text("");
+            }
+            if (!$("#user_email").val()) {
+                $("#form .data_row_06 .alert").text("이메일 주소를 입력해주세요.");
+            } else {
+                $("#form .data_row_06 .alert").text("");
+            }
+            // $("#agr_chk").is(":checked") == false => 필수 체크박스에 체크하지 않았을 때 나오는 얼럿
+            if ($("#agr_chk").is(":checked") == false) {
+                alert("필수 항목에 체크해주세요.")
+            }
+        } else {
+            // 모든 입력 값을 모두 입력했을 때 실행 
+            alert("폼이 제출되었습니다.");
+            // form action 실행 == 원하는 경로로 이동
+            $("#form").submit();
+        }
+    }
+
+    // 사용자가 선택하는 selectbox value 값 확인 여부 
+    function typeValue() {
+        // 원하는 selectBox id 값 가져오기
+        var selectedEl = document.getElementById("type_sel");
+        // selectBox 옵션 값 변수에 저장
+        var optionVal = selectedEl.options[selectedEl.selectedIndex].value;
+        // 옵션 값 중 특정 이름(=non_sel)을 가진 옵션이 아닌 경우 얼럿 삭제
+        if (optionVal != "non_sel") {
+            $("#form .data_row_01 .alert").text("");
+        }
+    }
+    // 제출 버튼을 클릭 시에만 얼럿 여부가 작동하기 때문에 사용자가 작성하는 순간부터 미입력 얼럿이 삭제 되기 위해 keyup 기능 추가
+
+    $("#tit").keyup(function() {
+        if ($("#tit").val()) {
+            $("#form .data_row_02 .alert").text("");
+        }
+    });
+    $("#content").keyup(function() {
+        if ($("#content").val()) {
+            $("#form .data_row_03 .alert").text("");
+        }
+    });
+    $("#user_nm").keyup(function() {
+        if ($("#user_nm").val()) {
+            $("#form .data_row_04 .alert").text("");
+        }
+    });
+    $("#user_tel").keyup(function() {
+        if ($("#user_tel").val()) {
+            $("#form .data_row_05 .alert").text("");
+        }
+    });
+    $("#user_email").keyup(function() {
+        if ($("#user_email").val()) {
+            $("#form .data_row_06 .alert").text("");
+        }
+    });
+</script>
+
+</html>
