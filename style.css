@@ -36,6 +36,10 @@ select {
     border: 1px solid #ddd;
     border-radius: 4px;
     color: #333;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 textarea {
